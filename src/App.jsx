@@ -7,7 +7,7 @@ import './index.css';
 function App() {
   return (
     <div className="layout-wrapper" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 15 }}>
+      <div className="center-bounds-bg">
         <Antigravity />
       </div>
 

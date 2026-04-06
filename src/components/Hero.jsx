@@ -3,9 +3,14 @@ import React from 'react';
 const Hero = () => {
     return (
         <section className="hero">
+            {/* Extended full-width bottom boundary spanning outer columns */}
+            <div className="line-h-bottom"></div>
+
             <div className="lines-container">
                 <div className="decoration-line line-l"></div>
                 <div className="decoration-line line-r"></div>
+                <img src="/assets/Cross-l.png" alt="bottom-left-cross" className="hero-cross-bl" />
+                <img src="/assets/Cross-r.png" alt="bottom-right-cross" className="hero-cross-br" />
             </div>
 
             <div className="hero-container">

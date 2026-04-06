@@ -1,6 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&display=swap');
 @import url('https://fonts.cdnfonts.com/css/born2bsporty-fs');
-@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+@font-face {
+  font-family: 'Geist Pixel';
+  src: url('https://cdn.jsdelivr.net/gh/vercel/geist-font@main/fonts/GeistPixel/webfonts/GeistPixel-Square.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
 
 :root {
   --primary: #008E80;
@@ -56,6 +62,19 @@ body {
 }
 
 /* Local Component Boundary Lines Constraints */
+.center-bounds-bg {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 1200px;
+  background-color: #FAFFFE;
+  z-index: 10;
+  overflow: hidden; /* Clips WebGL canvas physically inside lines */
+}
+
 .lines-container {
   width: 100%;
   max-width: 1200px;
@@ -90,6 +109,30 @@ body {
   background: url('/assets/Line-r.png') repeat-y center;
   background-size: 100% auto;
 }
+
+.line-h-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: url('/assets/Line-h.png') repeat-x center;
+  background-size: auto 100%;
+  z-index: 25; /* Above background and vertical lines */
+}
+
+.hero-cross-bl,
+.hero-cross-br {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  bottom: -9px; /* Optically centers the 20px cross precisely on the 2px line coordinate */
+  z-index: 10;
+  pointer-events: none;
+}
+
+.hero-cross-bl { left: -10px; }
+.hero-cross-br { right: -10px; }
 
 /* Navbar */
 .navbar {
@@ -316,7 +359,7 @@ body {
 /* Hero Section */
 .hero {
   width: 100%;
-  background: #FAFFFE;
+  background: transparent;
   /* Ensuring explicitly separated container level bounds explicitly */
   min-height: 687px;
   display: flex;
@@ -392,10 +435,10 @@ body {
 
 .hero-subtext {
   max-width: 100%;
-  font-family: 'Share Tech Mono', monospace;
+  font-family: 'Geist Pixel', sans-serif;
   font-weight: 400;
   /* Regular */
-  font-size: 18px;
+  font-size: 20px;
   line-height: 150%;
   color: #000E0D;
   text-align: center;

@@ -291,7 +291,6 @@ const AntigravityInner = () => {
 const Antigravity = () => {
     return (
         <Canvas 
-            eventSource={document.getElementById('root') || document.body} 
             camera={{ position: [0, 0, 10], fov: 35 }}
         >
             <AntigravityInner />
