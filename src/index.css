@@ -1,0 +1,537 @@
+@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&display=swap');
+@import url('https://fonts.cdnfonts.com/css/born2bsporty-fs');
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+:root {
+  --primary: #008E80;
+  --bg-main: #F5FFFE;
+  --text-dark: #000E0D;
+  --nav-link-solid: transparent;
+  --nav-text-solid: rgba(0, 43, 38, 0.2);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Born2bSporty FS', sans-serif;
+  background-color: var(--bg-main);
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100%;
+}
+
+.layout-wrapper {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  position: relative;
+  background-color: var(--bg-main);
+  min-height: 100vh;
+}
+
+/* Decorator Cross Layers and Bounding Structures */
+.crosses-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 30;
+  /* Exactly layers behind the navbar (100) but above the hero lines (20) */
+}
+
+.crosses-bounds {
+  width: 100%;
+  max-width: 1200px;
+  position: relative;
+  height: 100%;
+  margin: 0 auto;
+}
+
+/* Local Component Boundary Lines Constraints */
+.lines-container {
+  width: 100%;
+  max-width: 1200px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 20;
+}
+
+.decoration-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  pointer-events: none;
+}
+
+.line-l {
+  left: -1px;
+  /* perfectly aligned edge */
+  background: url('/assets/Line-l.png') repeat-y center;
+  background-size: 100% auto;
+  /* Ensures wide PNGs shrink cleanly instead of clipping */
+}
+
+.line-r {
+  right: -1px;
+  /* perfectly aligned edge */
+  background: url('/assets/Line-r.png') repeat-y center;
+  background-size: 100% auto;
+}
+
+/* Navbar */
+.navbar {
+  width: 100%;
+  height: 81px;
+  background: rgba(245, 255, 254, 0.1);
+  backdrop-filter: blur(28px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  /* Centers the nav-container */
+  box-shadow: none;
+  /* Removing any potential shadows */
+  clip-path: inset(0 0 -100% 0);
+  /* Stops backdrop-filter out-of-bounds shadow bleeds from the top edge during scrolling */
+}
+
+.nav-container {
+  width: 100%;
+  max-width: 1200px;
+  /* Forces exactly the matching 120px padding visual on a 1440 screen */
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  z-index: 30;
+  /* Overrides the .lines-container (z-index: 20) ensuring CTA buttons rest above decorations */
+}
+
+.nav-logo {
+  margin-left: 16px;
+  /* Offset inside the 1200px container matching 136px absolute */
+}
+
+.nav-links {
+  position: absolute;
+  left: 264px;
+  /* Offset to match the 384px from 1440 canvas left (384 - 120 = 264) */
+  top: 0;
+  /* explicitly anchor vertical to prevent drifting */
+  height: 80px;
+  display: flex;
+  backdrop-filter: blur(24px);
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 80px;
+  font-family: 'Born2bSporty FS';
+  font-size: 22px;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  padding: 0 30px;
+  white-space: nowrap;
+  /* Ensures single line */
+}
+
+.nav-link.home {
+  width: 125px;
+  background: #009C8D33;
+  color: #002B26E5;
+}
+
+.nav-link.about-us,
+.nav-link.portfolio,
+.nav-link.testimonial,
+.nav-link.service {
+  background: transparent !important;
+  color: var(--nav-text-solid) !important;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  transition: color 0.3s ease;
+}
+
+.nav-link.about-us::before,
+.nav-link.portfolio::before,
+.nav-link.testimonial::before,
+.nav-link.service::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0%;
+  background: rgba(89, 124, 120, 0.1);
+  /* Exact 10% opacity */
+  z-index: -1;
+  transition: height 0.3s ease-in-out;
+}
+
+.nav-link.about-us:hover::before,
+.nav-link.portfolio:hover::before,
+.nav-link.testimonial:hover::before,
+.nav-link.service:hover::before {
+  height: 100%;
+}
+
+.nav-link.about-us:hover,
+.nav-link.portfolio:hover,
+.nav-link.testimonial:hover,
+.nav-link.service:hover {
+  color: #597c78 !important;
+}
+
+/* Hard widths for nav items as requested */
+.nav-link.about-us {
+  width: 132px;
+}
+
+.nav-link.service {
+  width: 124px;
+}
+
+.nav-link.portfolio {
+  width: 130px;
+}
+
+.nav-link.testimonial {
+  width: 160px;
+}
+
+.nav-chip {
+  width: 14px;
+  height: 12px;
+  transform: translateY(2px);
+  /* Counters the typographic baseline lift of the font */
+  overflow: visible;
+  /* Prevents edge-clipping issues on tight SVGs */
+}
+
+.nav-cta {
+  position: absolute;
+  top: 0;
+  right: 0;
+  /* Aligned right within the 1200px container */
+  width: 160px;
+  height: 100%;
+  /* Ensures flush mapping to the 81px top-navbar boundaries, removing the 1px gap */
+  background: #008E80;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.nav-cta:hover {
+  background: #007065;
+}
+
+.texture-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('/assets/texture.png');
+  animation: textureFade 4s ease-in-out infinite;
+  pointer-events: none;
+  background-size: cover;
+}
+
+@keyframes textureFade {
+
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.nav-cta-text {
+  font-family: 'Born2bSporty FS';
+  font-size: 26px;
+  color: #FFFFFF;
+  text-align: center;
+  line-height: 100%;
+  z-index: 2;
+}
+
+/* Crosses positioned within local bounds constraint cleanly */
+.cross-top-l,
+.cross-top-r,
+.cross-bot-l,
+.cross-bot-r {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  z-index: -1;
+}
+
+.cross-bot-l {
+  left: -10px;
+  top: 71px;
+}
+
+.cross-bot-r {
+  right: -10px;
+  top: 71px;
+}
+
+.cross-top-l {
+  left: -10px;
+  top: -10px;
+}
+
+.cross-top-r {
+  right: -10px;
+  top: -10px;
+}
+
+/* Hero Section */
+.hero {
+  width: 100%;
+  background: #FAFFFE;
+  /* Ensuring explicitly separated container level bounds explicitly */
+  min-height: 687px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 108px;
+  position: relative;
+}
+
+.hero-container {
+  width: 100%;
+  max-width: 720.8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 36px;
+  z-index: 60;
+  pointer-events: none;
+  /* Passes cursor through to background */
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.hero-header {
+  width: 100%;
+  max-width: 720.8px;
+  font-family: 'Big Shoulders Display';
+  font-weight: 900;
+  font-size: 78.06px;
+  line-height: 120%;
+  text-transform: uppercase;
+  color: #000E0D;
+  text-align: center;
+}
+
+.hero-row-2 {
+  display: flex;
+  align-items: center;
+  gap: 12.2px;
+}
+
+.grow-text {
+  font-family: 'Big Shoulders Display';
+  font-weight: 900;
+  font-size: 97.58px;
+  color: #000E0D;
+  text-transform: uppercase;
+}
+
+.uiux-container {
+  display: flex;
+  align-items: center;
+  gap: 9.76px;
+  font-family: 'Big Shoulders Display';
+  font-weight: 700;
+  font-size: 97.58px;
+  color: #000E0D;
+}
+
+.uiux-text {
+  background: linear-gradient(180deg, #2F08AE 0%, #19045D 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+}
+
+.hero-subtext {
+  max-width: 100%;
+  font-family: 'Share Tech Mono', monospace;
+  font-weight: 400;
+  /* Regular */
+  font-size: 18px;
+  line-height: 150%;
+  color: #000E0D;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.hero-cta-block {
+  display: flex;
+  gap: 16px;
+  pointer-events: auto; /* Restores hardware interactions stripped by hero-container's optical mask */
+}
+
+.btn-primary {
+  width: 277px;
+  height: 64px;
+  background: #008E80;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: #007065;
+}
+
+.btn-primary span {
+  font-family: 'Born2bSporty FS';
+  font-size: 28px;
+  color: #FFFFFF;
+  z-index: 2;
+}
+
+.btn-secondary {
+  width: 234px;
+  height: 64px;
+  background: rgba(0, 142, 128, 0.1);
+  border: 1px solid #008E80;
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10.6px;
+  padding: 0 20px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background: rgba(0, 142, 128, 0.3);
+}
+
+.btn-secondary span {
+  font-family: 'Born2bSporty FS';
+  font-size: 28px;
+  color: #008E80;
+}
+
+.arrow-icon {
+  width: 16px;
+  height: 16px;
+  position: relative;
+  top: 2px;
+}
+
+/* ====================================================
+   RESPONSIVE DESIGN BEYOND 1200PX & SUB-1024PX
+==================================================== */
+@media (max-width: 1240px) {
+  .nav-links {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 1024px) {
+  .nav-links {
+    display: none; /* Hide standard links to prevent collision on tablet, awaiting hamburger menu */
+  }
+  .nav-cta {
+    position: relative;
+    right: auto;
+    margin-left: auto;
+    margin-right: 20px;
+  }
+  .nav-logo {
+    margin-left: 20px;
+  }
+  .hero-header {
+    font-size: 8vw;
+  }
+  .grow-text, .uiux-container {
+    font-size: 9.5vw;
+  }
+  .lines-container {
+    width: 100%;
+    left: 0;
+    transform: none;
+    padding: 0 20px;
+  }
+  .line-l { left: 20px; }
+  .line-r { right: 20px; }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding-top: 60px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .hero-header {
+    font-size: clamp(32px, 10vw, 78px);
+  }
+  .grow-text, .uiux-container {
+    font-size: clamp(40px, 12vw, 97px);
+  }
+  .hero-row-2 {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .hero-cta-block {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 16px;
+  }
+  .btn-primary, .btn-secondary {
+    width: 100%;
+    max-width: 300px;
+  }
+  .lines-container {
+    display: none; /* Hide background lines cleanly on compact mobile vertically */
+  }
+}
