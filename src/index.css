@@ -34,7 +34,6 @@ body {
 
 .layout-wrapper {
   width: 100%;
-  max-width: 1440px;
   margin: 0 auto;
   position: relative;
   background-color: var(--bg-main);
@@ -54,8 +53,8 @@ body {
 }
 
 .crosses-bounds {
-  width: 100%;
-  max-width: 1200px;
+  width: calc(100% - 240px);
+  max-width: 1280px;
   position: relative;
   height: 100%;
   margin: 0 auto;
@@ -68,16 +67,16 @@ body {
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 100%;
-  max-width: 1200px;
+  width: calc(100% - 240px);
+  max-width: 1280px;
   background-color: #FAFFFE;
   z-index: 10;
   overflow: hidden; /* Clips WebGL canvas physically inside lines */
 }
 
 .lines-container {
-  width: 100%;
-  max-width: 1200px;
+  width: calc(100% - 240px);
+  max-width: 1280px;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -153,9 +152,9 @@ body {
 }
 
 .nav-container {
-  width: 100%;
-  max-width: 1200px;
-  /* Forces exactly the matching 120px padding visual on a 1440 screen */
+  width: calc(100% - 240px);
+  max-width: 1280px;
+  /* Forces exactly the matching 120px margin visual natively */
   height: 100%;
   position: relative;
   display: flex;
